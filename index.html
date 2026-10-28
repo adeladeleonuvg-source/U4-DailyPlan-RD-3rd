@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - 3rd Grade Reading Unit 4 Pizarra</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoTeal: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            background-color: #F2F5E9;
+        }
+        .tab-transition {
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-montanoBg min-h-screen flex flex-col text-slate-800">
+
+    <!-- TOP HEADER WITH INSTITUTIONAL IDENTITY & FULLSCREEN BUTTON -->
+    <header class="bg-montanoBlue text-white shadow-md py-3 px-6 flex flex-wrap justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-4">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" alt="Colegio Montano Logo" class="h-12 w-12 rounded-full object-cover bg-white p-1 border-2 border-montanoYellow" onerror="this.src='https://placehold.co/48x48/1269A8/FFFFFF?text=CM'">
+            <div>
+                <h1 class="text-lg md:text-xl font-bold tracking-wide">Colegio Montano | Pedagogical Digital Canvas</h1>
+                <p class="text-xs text-montanoLightBlue">Course: Reading | Grade: 3rd | Unit: 4 | Teacher: Nicole De León</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-3 mt-2 md:mt-0">
+            <span class="text-xs bg-montanoTeal px-3 py-1 rounded-full font-semibold hidden sm:inline-block">Aug 12 - Oct 12 (8 Classes)</span>
+            <button onclick="toggleFullScreen()" class="bg-montanoYellow text-slate-900 px-4 py-2 rounded-lg font-bold hover:bg-yellow-400 shadow transition flex items-center space-x-2 text-sm">
+                <i class="fa-solid fa-expand"></i>
+                <span>Fullscreen</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- CLASS SELECTOR NAVIGATION (8 WEEKS) -->
+    <nav class="bg-montanoLightBlue py-2 px-4 shadow-inner flex overflow-x-auto space-x-2 scrollbar-thin">
+        <div class="container mx-auto flex space-x-2 min-w-max">
+            <button onclick="switchClass(1)" id="btn-week-1" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-montanoBlue text-white shadow transition">Class 1 (Aug 12)</button>
+            <button onclick="switchClass(2)" id="btn-week-2" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 2 (Aug 19)</button>
+            <button onclick="switchClass(3)" id="btn-week-3" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 3 (Aug 26)</button>
+            <button onclick="switchClass(4)" id="btn-week-4" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 4 (Sep 2)</button>
+            <button onclick="switchClass(5)" id="btn-week-5" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 5 (Sep 9)</button>
+            <button onclick="switchClass(6)" id="btn-week-6" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 6 (Sep 16)</button>
+            <button onclick="switchClass(7)" id="btn-week-7" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 7 (Sep 23)</button>
+            <button onclick="switchClass(8)" id="btn-week-8" class="week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition">Class 8 (Oct 12)</button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow container mx-auto p-4 md:p-6 max-w-6xl">
+
+        <!-- CLASS HEADER DETAILS CARD -->
+        <section id="class-header-card" class="bg-white rounded-2xl shadow-md p-5 mb-6 border-l-8 border-montanoBlue">
+            <!-- Dynamic Class Info injected via JS -->
+        </section>
+
+        <!-- 4 MOMENTS TABS NAVIGATION -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <button onclick="switchTab('intro')" id="tab-btn-intro" class="p-3 rounded-xl font-bold text-center transition shadow bg-montanoBlue text-white flex flex-col items-center justify-center">
+                <i class="fa-solid fa-bolt text-lg mb-1"><span>I) Intro & Warm-Up (~5 min)</span></i>
+            </button>
+            <button onclick="switchTab('individual')" id="tab-btn-individual" class="p-3 rounded-xl font-bold text-center transition shadow bg-white text-montanoBlue hover:bg-slate-50 flex flex-col items-center justify-center">
+                <i class="fa-solid fa-book-open text-lg mb-1"><span>II) Individual (20 min)</span></i>
+            </button>
+            <button onclick="switchTab('cooperative')" id="tab-btn-cooperative" class="p-3 rounded-xl font-bold text-center transition shadow bg-white text-montanoBlue hover:bg-slate-50 flex flex-col items-center justify-center">
+                <i class="fa-solid fa-users text-lg mb-1"><span>III) Cooperative (30 min)</span></i>
+            </button>
+            <button onclick="switchTab('closing')" id="tab-btn-closing" class="p-3 rounded-xl font-bold text-center transition shadow bg-white text-montanoBlue hover:bg-slate-50 flex flex-col items-center justify-center">
+                <i class="fa-solid fa-flag-checkered text-lg mb-1"><span>IV) Plenary & Closing (15 min)</span></i>
+            </button>
+        </div>
+
+        <!-- TAB CONTENTS -->
+        <div id="tab-content-container" class="space-y-6">
+            <!-- Content will be injected dynamically based on selected Class & Tab -->
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-800 text-slate-300 py-4 px-6 text-center text-xs mt-auto">
+        <p>Colegio Montano &copy; 2026 | Leader in Me & CNB Guatemala Aligned | Interactive Digital Canvas Pizarra</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Fullscreen Toggle function
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showMsg("Error attempting to enable fullscreen: " + err.message);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Custom Message Box replacement for alert()
+        function showMsg(text) {
+            const box = document.createElement('div');
+            box.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+            box.innerHTML = `<div class="bg-white p-6 rounded-2xl shadow-2xl max-w-sm text-center">
+                <p class="text-slate-800 font-semibold mb-4">${text}</p>
+                <button onclick="this.parentElement.parentElement.remove()" class="bg-montanoBlue text-white px-4 py-2 rounded-lg font-bold">OK</button>
+            </div>`;
+            document.body.appendChild(box);
+        }
+
+        // Data for the 8 classes (Unit 4: Our World 3 Student Book & Workbook)
+        const classesData = {
+            1: {
+                week: "Class 1 (August 12)",
+                theme: "November Celebrations (Day of the Dead & Yi Peng) - Student Book pp. 140-141",
+                cnb: "CNB Competency: Expresses ideas clearly in English regarding world cultural celebrations and traditions. Learning Outcome: Identifies key facts and compares dates and practices of global festivals.",
+                keyCompetencies: "Critical thinking, cultural awareness, communication, appreciation of diversity.",
+                montanoHabit: "Habit 5: Seek First to Understand, Then to Be Understood (Listening with empathy to other cultures).",
+                resources: "Our World 3 Student Book (pp. 140-141), interactive whiteboard, markers, notebooks.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review Game ('Flashcard Race'). Review key festival words: celebration, festival, cemetery, lanterns, parade, fireworks, costumes, skulls.",
+                    realWorld: "Discussion: What special celebrations do we have in Guatemala in November? How do traditions connect families?"
+                },
+                individual: {
+                    task: "Read Student Book page 140 ('November Celebrations') and complete Exercise 2 (True/False check) and Exercise 3 (Complete the chart comparing Day of the Dead and Yi Peng).",
+                    solutionTitle: "Check Answers & Solutions (Self-Evaluation)",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 2 Answers (True/False):</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3 text-sm">
+                            <li>False (It's a happy celebration)</li>
+                            <li>True</li>
+                            <li>True</li>
+                            <li>False (Thousands of lanterns)</li>
+                            <li>True</li>
+                        </ol>
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 3 Chart Solutions:</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm">
+                            <li><strong>Day of the Dead:</strong> When: First day of November. Why: To remember and celebrate dead people/families. What: Decorate cemeteries, give candy, light candles.</li>
+                            <li><strong>Yi Peng:</strong> When: November. Why: To take bad things away in life. What: Make lanterns, light candles, watch fireworks.</li>
+                        </ul>
+                    `
+                },
+                cooperative: {
+                    task: "Work in pairs with assigned roles (Reader & Recorder). Look at photographs on page 140 and complete Exercise 4 dialogue roleplay ('I like the lanterns!').",
+                    product: "A shared mini-poster sketching one lantern and one skull with 2 written descriptive sentences."
+                },
+                closing: {
+                    plenary: "Teams share their mini-posters. Guiding question: 'How are the Day of the Dead and Yi Peng similar?'",
+                    simulator: "Interactive Trivia Quiz on digital whiteboard testing Day of the Dead vs. Yi Peng facts.",
+                    homework: "Home Investigation: Ask a family member about their favorite November tradition in Guatemala and write 2 sentences in your notebook."
+                },
+                evaluation: "Checklist evaluating mastery of reading comprehension, collaborative dialogue, and active participation."
+            },
+            2: {
+                week: "Class 2 (August 19)",
+                theme: "November Celebrations Writing & Values (Celebrate Your Culture) - Student Book pp. 142-143",
+                cnb: "CNB Competency: Writes short descriptive paragraphs about personal experiences and community celebrations. Learning Outcome: Organizes thoughts using descriptive adjectives and sentence structure.",
+                keyCompetencies: "Creativity, writing expression, self-awareness, emotional intelligence.",
+                montanoHabit: "Habit 1: Be Proactive (Taking pride in sharing one's unique cultural heritage).",
+                resources: "Our World 3 Student Book (pp. 142-143), notebooks, colored pencils.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review Game ('Word Association Chain'). Recall festival vocabulary and adjectives from last class.",
+                    realWorld: "Think-Pair-Share: How do you celebrate your culture?"
+                },
+                individual: {
+                    task: "Complete Student Book page 142 Exercise 2 (Write about a celebration or festival you attended, describing what you wore, saw, and did).",
+                    solutionTitle: "Writing Model & Guide",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Model Paragraph Structure:</p>
+                        <p class="text-sm italic mb-2">"The [Name of Festival] is amazing. Every year in [Month], we celebrate... I wore... I saw... My favorite part was..."</p>
+                        <p class="text-sm text-slate-600">Ensure students use capital letters, periods, and descriptive words (cold, big, bright, happy).</p>
+                    `
+                },
+                cooperative: {
+                    task: "Small Group Share (SB p. 143 Ex. 3): Read your paragraph to your group and fill out the summary chart with your peers' celebrations.",
+                    product: "A completed group celebration summary chart."
+                },
+                closing: {
+                    plenary: "Selected students read their paragraphs aloud. Teacher highlights positive use of descriptive adjectives.",
+                    simulator: "Digital Word-Builder Game: Unscramble festival adjectives on screen.",
+                    homework: "Home Investigation: Interview an older relative about a festival they attended when they were children and write 1 paragraph about it."
+                },
+                evaluation: "Rubric assessing writing clarity, structure, cooperation, and oral presentation."
+            },
+            3: {
+                week: "Class 3 (August 26)",
+                theme: "Celebrating the Sun (Sweden - Lucia Day & Midsummer) - Workbook pp. 100-101",
+                cnb: "CNB Competency: Analyzes informational texts from different cultures and geographic regions. Learning Outcome: Extracts specific details from international festival readings.",
+                keyCompetencies: "Global perspective, critical thinking, comparative analysis.",
+                montanoHabit: "Habit 6: Synergize (Combining ideas to understand global traditions).",
+                resources: "Our World 3 Workbook (pp. 100-101), colored pencils.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review for Unit 8 (Sun, darkness, dress up, crown, winter, summer, midsummer, feast). Quick spelling bee.",
+                    realWorld: "Map inquiry: Where is Sweden? Why are winter days so short there?"
+                },
+                individual: {
+                    task: "Read WB page 100 ('Celebrating the Sun') and complete Exercise 2 (True/False) and Exercise 3 (Complete chart for Lucia Day & Midsummer).",
+                    solutionTitle: "Check Answers & Solutions",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 2 Answers (True/False):</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3 text-sm">
+                            <li>False (Festival of lights, not stars)</li>
+                            <li>False (Girls dress up as Lucia)</li>
+                            <li>True</li>
+                            <li>False (Happens in June)</li>
+                            <li>True</li>
+                        </ol>
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 3 Chart Solutions:</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm">
+                            <li><strong>Lucia Day:</strong> When: Dec 13. What is it: Festival of lights. What people do: Dress in white, wear candles, eat special buns.</li>
+                            <li><strong>Midsummer:</strong> When: June. What is it: Celebrate longest day/start of summer. What people do: Decorate with flowers, dance, sing, eat fish.</li>
+                        </ul>
+                    `
+                },
+                cooperative: {
+                    task: "Pairs work on WB page 101 Exercise 4 (Read and write answers about Lucia Day and Midsummer feast). Compare answers with another pair.",
+                    product: "Answer key booklet checked by peer teams."
+                },
+                closing: {
+                    plenary: "Team challenge: Rapid-fire Q&A about Swedish traditions vs. Latin American traditions.",
+                    simulator: "Interactive digital matching game: Match Swedish traditions to their correct months (December vs. June).",
+                    homework: "Home Investigation: Research what people eat during winter celebrations in other countries and write down one fun fact."
+                },
+                evaluation: "Checklist assessing text extraction accuracy and cooperative teamwork."
+            },
+            4: {
+                week: "Class 4 (September 2)",
+                theme: "Celebrating the Sun Writing & Review (Thanksgiving Day Parade) - Workbook p. 102",
+                cnb: "CNB Competency: Demonstrates comprehension of narrative texts through guided writing and structuring events. Learning Outcome: Sequences events using descriptive writing tools.",
+                keyCompetencies: "Organization, time sequencing, clear communication.",
+                montanoHabit: "Habit 2: Begin with the End in Mind (Planning a parade report structure).",
+                resources: "Our World 3 Workbook (p. 102), writing journals.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review Game ('Balloon Pop' spelling challenge across Unit 8 terms).",
+                    realWorld: "Discussion: Have you ever seen a big parade or celebration in Guatemala? What did you hear and see?"
+                },
+                individual: {
+                    task: "Complete Workbook page 102 Exercise 1 (Read 'A Thanksgiving Day Parade' by Lisa and answer questions) and Exercise 2 (Write about a parade or party you went to).",
+                    solutionTitle: "Writing Guide & Answer Key",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 1 Answers:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3 text-sm">
+                            <li>Title: A Thanksgiving Day Parade</li>
+                            <li>What she wore: A warm coat and a hat</li>
+                            <li>What she heard: Marching bands playing music</li>
+                            <li>What she saw: Great dancers and big animal-shaped balloons</li>
+                        </ol>
+                        <p class="font-semibold text-montanoBlue">Ex. 2 Tip: Ensure students write a title and use past tense verbs (went, saw, wore, heard).</p>
+                    `
+                },
+                cooperative: {
+                    task: "Small group sharing: Read your parade story to your partner and check if they included what they wore, saw, and heard.",
+                    product: "Peer-edited narrative draft."
+                },
+                closing: {
+                    plenary: "Volunteers share their parade highlights with the class. Teacher provides positive reinforcement.",
+                    simulator: "Digital Wheel of Names: Random student picker to share one sentence from their writing.",
+                    homework: "Home Investigation: Draw a picture of your favorite parade float or party decoration in your notebook and label 3 items."
+                },
+                evaluation: "Rubric evaluating narrative structure, grammar (past tense), and peer feedback quality."
+            },
+            5: {
+                week: "Class 5 (September 9)",
+                theme: "Wow! Look at That! (Museums & Treasures of the Earth) - Student Book pp. 156-157",
+                cnb: "CNB Competency: Explores informational texts about science and history museums. Learning Outcome: Identifies museum locations, exhibits, and interactive features.",
+                keyCompetencies: "Curiosity, critical thinking, geographical awareness.",
+                montanoHabit: "Habit 3: Put First Things First (Focusing curiosity on learning about museums).",
+                resources: "Our World 3 Student Book (pp. 156-157), Workbook.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review for Unit 9 (Museum, dinosaur, fossil, planetarium, theater, science, exhibit, rocks). Matching game on board.",
+                    realWorld: "Ask students: Have you visited a museum in Guatemala City? What did you see there?"
+                },
+                individual: {
+                    task: "Read SB page 156 ('Wow! Look at That!') and complete Exercise 2 (Match sentences) and Exercise 3 (Make a chart: Things I know are there vs. Things I think are there).",
+                    solutionTitle: "Check Answers & Solutions",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 2 Matching Solutions:</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3 text-sm">
+                            <li>1 -> b (The Children's Museum is in Indianapolis, USA)</li>
+                            <li>2 -> c (The dinosaurs outside look like they're running away)</li>
+                            <li>3 -> a (You can learn about the stars in the planetarium)</li>
+                            <li>4 -> d (There are giant models of dinosaurs / go rock climbing)</li>
+                            <li>5 -> e (You can go to the theater, and you can explore outside the museum)</li>
+                        </ol>
+                    `
+                },
+                cooperative: {
+                    task: "Pairs work on SB page 157 Exercise 4 (Ask and answer questions about museums you know using dialogue bubbles: 'I went to a toy museum today. That's interesting! What did you see?').",
+                    product: "Active roleplay demonstration in front of the group."
+                },
+                closing: {
+                    plenary: "Group discussion: 'Why are museums important for children and adults?'",
+                    simulator: "Virtual Museum 360 preview or interactive digital quiz on dinosaur fossils.",
+                    homework: "Home Investigation: Search online or in an encyclopedia for the name of a famous museum in another country and write down 1 interesting exhibit."
+                },
+                evaluation: "Checklist measuring oral fluency in dialogues and comprehension of museum exhibits."
+            },
+            6: {
+                week: "Class 6 (September 16)",
+                theme: "Wow! Look at That! Writing & Values (Try New Things) - Student Book p. 158",
+                cnb: "CNB Competency: Uses sequence transition words (first, then, next, after that) in descriptive writing. Learning Outcome: Sequences weekend events chronologically.",
+                keyCompetencies: "Organization, writing precision, emotional growth.",
+                montanoHabit: "Habit 7: Sharpen the Saw (Trying new hobbies and enjoying leisure time).",
+                resources: "Our World 3 Student Book (p. 158), notebooks.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review Game ('Transition Words Race'). Put scrambled event cards in order using *first, then, next, after that*.",
+                    realWorld: "Discussion: What new activity did you try recently?"
+                },
+                individual: {
+                    task: "Read Hassan's story 'My Perfect Weekend' on SB page 158, underline sequence words, and complete Exercise 2 (Describe a good weekend you had).",
+                    solutionTitle: "Writing Structure Guide",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Sequence Words Checklist:</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm mb-3">
+                            <li><strong>First:</strong> I got up early...</li>
+                            <li><strong>Then / Next:</strong> After that I went fishing...</li>
+                            <li><strong>In the evening / On Sunday:</strong> We went to the stadium...</li>
+                        </ul>
+                        <p class="text-sm text-slate-600">Ensure students write at least 4 sentences using correct time connectors.</p>
+                    `
+                },
+                cooperative: {
+                    task: "SB page 158 Exercise 3: Share your writing in a small group, listen to your peers, and fill in the sharing chart.",
+                    product: "Completed group weekend activity chart."
+                },
+                closing: {
+                    plenary: "Students share their most exciting weekend activity with the class.",
+                    simulator: "Interactive sentence builder: Drag and drop sequence words into correct story blanks.",
+                    homework: "Home Investigation: Write a 3-sentence diary entry about what you plan to do next Saturday using sequence words."
+                },
+                evaluation: "Rubric assessing correct use of sequence words, clarity, and group collaboration."
+            },
+            7: {
+                week: "Class 7 (September 23)",
+                theme: "Let's Visit a Museum (California Academy of Sciences) - Workbook pp. 112-113",
+                cnb: "CNB Competency: Analyzes scientific and natural history texts. Learning Outcome: Organizes complex information into graphic organizers and tree charts.",
+                keyCompetencies: "Analytical thinking, information categorization, scientific literacy.",
+                montanoHabit: "Habit 4: Think Win-Win (Collaborating to solve graphic organizers).",
+                resources: "Our World 3 Workbook (pp. 112-113), colored pens.",
+                intro: {
+                    activity: "Vocabulary 1 & 2 Review (Science museum, fossils, planetarium, aquarium, alligator, sharks, penguins). Quick flashcard challenge.",
+                    realWorld: "Trivia question: What is the largest animal in the ocean?"
+                },
+                individual: {
+                    task: "Read WB page 112 ('Let's Visit a Museum') and complete Exercise 2 (True/False check) and Exercise 3 (Complete the graphic organizer for the California Academy of Sciences).",
+                    solutionTitle: "Check Answers & Solutions",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 2 Answers (True/False):</p>
+                        <ol class="list-decimal list-inside space-y-1 mb-3 text-sm">
+                            <li>False (Science museum, not art)</li>
+                            <li>True</li>
+                            <li>False (It has 40,000 animals!)</li>
+                            <li>True</li>
+                        </ol>
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 3 Graphic Organizer Solutions:</p>
+                        <ul class="list-disc list-inside space-y-1 text-sm">
+                            <li><strong>What you can see (Museum):</strong> Fossils, rocks, trees, dinosaurs, movies about planets/stars.</li>
+                            <li><strong>Animals (Steinhart Aquarium):</strong> Penguins, sharks, white alligator (Claude).</li>
+                        </ul>
+                    `
+                },
+                cooperative: {
+                    task: "Pairs complete WB page 113 Exercise 4 chart ('Do you want to visit a museum? What do you want to see there?') by interviewing each other.",
+                    product: "Completed 'Me and My Partner' interview chart."
+                },
+                closing: {
+                    plenary: "Teams present their partner's museum preferences to the plenary group.",
+                    simulator: "Digital Quiz Bowl: Test knowledge about fossils, aquariums, and planetariums.",
+                    homework: "Home Investigation: Research Claude the white alligator online and write down one fun fact about alligators in your notebook."
+                },
+                evaluation: "Checklist evaluating graphic organizer completion and partner interview accuracy."
+            },
+            8: {
+                week: "Class 8 (October 12)",
+                theme: "Extended Reading: The Paralympics & Unit 4 Final Review - Student Book pp. 162-163",
+                cnb: "CNB Competency: Synthesizes learning across the unit and reads extended informational texts about inspirational athletes. Learning Outcome: Identifies key facts and vocabulary from sports biographies.",
+                keyCompetencies: "Empathy, perseverance, resilience, critical reading.",
+                montanoHabit: "Habit 1 & 7: Be Proactive & Sharpen the Saw (Overcoming challenges with determination).",
+                resources: "Our World 3 Student Book (pp. 162-163), Unit 4 Project materials.",
+                intro: {
+                    activity: "Unit 4 Comprehensive Vocabulary Review Game ('Jeopardy Trivia' covering Units 8 & 9).",
+                    realWorld: "Discussion: What does it mean to be persistent when facing challenges?"
+                },
+                individual: {
+                    task: "Read Extended Reading on SB page 162 ('The Paralympics' & Daniel Dias) and complete SB page 163 Exercise 2 (Fill in blanks with: disabilities, four, medals, parade, swim).",
+                    solutionTitle: "Check Answers & Solutions",
+                    solutionContent: `
+                        <p class="font-semibold text-montanoBlue mb-2">Ex. 2 Fill-in-the-Blank Solutions:</p>
+                        <ol class="list-decimal list-inside space-y-1 text-sm">
+                            <li>a. The Olympics and the Paralympics take place every <strong>four</strong> years.</li>
+                            <li>b. Paralympians are athletes who also have <strong>disabilities</strong>.</li>
+                            <li>c. At the beginning of the Paralympics, there is a <strong>parade</strong>.</li>
+                            <li>d. After he saw the Paralympics, Daniel Dias learned to <strong>swim</strong> and won gold <strong>medals</strong>.</li>
+                        </ol>
+                    `
+                },
+                cooperative: {
+                    task: "Small group project (SB p. 163 Ex. 4): Choose an activity (e.g., make a poster about the Paralympics or act out an interview with Daniel Dias).",
+                    product: "A collaborative mini-poster or roleplay presentation."
+                },
+                closing: {
+                    plenary: "Teams present their Paralympic posters. Final Unit 4 reflection: 'What was your favorite topic in Unit 4?'",
+                    simulator: "Digital Interactive Board Game celebrating completion of Unit 4.",
+                    homework: "Home Investigation: Write a thank-you note to someone in your family who helps you learn and succeed every day."
+                },
+                evaluation: "Comprehensive rubric assessing reading comprehension, collaborative project quality, and speaking skills."
+            }
+        };
+
+        let currentWeek = 1;
+        let currentTab = 'intro';
+
+        function switchClass(weekNum) {
+            currentWeek = weekNum;
+            document.querySelectorAll('.week-btn').forEach((btn, idx) => {
+                if (idx + 1 === weekNum) {
+                    btn.className = "week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-montanoBlue text-white shadow transition";
+                } else {
+                    btn.className = "week-btn px-4 py-2 rounded-lg font-semibold text-sm bg-white text-montanoBlue hover:bg-slate-100 shadow transition";
+                }
+            });
+            renderClass();
+        }
+
+        function switchTab(tabName) {
+            currentTab = tabName;
+            const tabs = ['intro', 'individual', 'cooperative', 'closing'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabName) {
+                    btn.className = "p-3 rounded-xl font-bold text-center transition shadow bg-montanoBlue text-white flex flex-col items-center justify-center";
+                } else {
+                    btn.className = "p-3 rounded-xl font-bold text-center transition shadow bg-white text-montanoBlue hover:bg-slate-50 flex flex-col items-center justify-center";
+                }
+            });
+            renderTabContent();
+        }
+
+        function renderClass() {
+            const data = classesData[currentWeek];
+            
+            document.getElementById('class-header-card').innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <span class="bg-montanoYellow text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">${data.week}</span>
+                        <h2 class="text-xl md:text-2xl font-bold text-montanoBlue mt-2">${data.theme}</h2>
+                        <p class="text-sm text-slate-600 mt-1"><strong>CNB Guatemala:</strong> ${data.cnb}</p>
+                    </div>
+                    <div class="bg-montanoBg p-3 rounded-xl border border-montanoLightBlue text-xs space-y-1 min-w-[240px]">
+                        <p><strong>Key Competencies:</strong> ${data.keyCompetencies}</p>
+                        <p><strong>Montano Habit:</strong> ${data.montanoHabit}</p>
+                        <p><strong>Resources:</strong> ${data.resources}</p>
+                    </div>
+                </div>
+            `;
+            renderTabContent();
+        }
+
+        function renderTabContent() {
+            const data = classesData[currentWeek];
+            const container = document.getElementById('tab-content-container');
+
+            if (currentTab === 'intro') {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-montanoBlue tab-transition">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-montanoBlue text-white p-3 rounded-xl"><i class="fa-solid fa-bolt text-xl"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-montanoBlue">Moment I) Introduction & Warm-Up (~5 minutes)</h3>
+                                <p class="text-xs text-slate-500">Activating prior knowledge & connecting with real life (Leader in Me integration)</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mt-4">
+                            <div class="bg-montanoBg p-4 rounded-xl border border-montanoLightBlue">
+                                <h4 class="font-bold text-montanoBlue mb-2"><i class="fa-solid fa-gamepad mr-2"></i>Warm-Up & Vocabulary Review (Unit 8 & 9 Vocab 1 & 2)</h4>
+                                <p class="text-sm text-slate-700">${data.intro.activity}</p>
+                            </div>
+                            <div class="bg-montanoBg p-4 rounded-xl border border-montanoLightBlue">
+                                <h4 class="font-bold text-montanoBlue mb-2"><i class="fa-solid fa-earth-americas mr-2"></i>Real-World Connection</h4>
+                                <p class="text-sm text-slate-700">${data.intro.realWorld}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'individual') {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-montanoTeal tab-transition">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-montanoTeal text-white p-3 rounded-xl"><i class="fa-solid fa-book-open text-xl"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-montanoTeal">Moment II) Trabajo Individual (20 minutes)</h3>
+                                <p class="text-xs text-slate-500">Autonomous student production, reading analysis, and book exercises</p>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-800 mb-2">Student Task / Workbook Assignment:</h4>
+                                <p class="text-sm text-slate-700">${data.individual.task}</p>
+                            </div>
+                            <!-- Accordion for Hidden Solution -->
+                            <div class="border border-montanoLightBlue rounded-xl overflow-hidden">
+                                <button onclick="toggleAccordion('solution-box')" class="w-full bg-montanoLightBlue text-slate-900 font-bold p-3 text-left flex justify-between items-center transition hover:bg-sky-200">
+                                    <span><i class="fa-solid fa-eye mr-2"></i>${data.individual.solutionTitle}</span>
+                                    <i id="solution-icon" class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div id="solution-box" class="hidden p-4 bg-white text-slate-700 border-t border-montanoLightBlue">
+                                    ${data.individual.solutionContent}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'cooperative') {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-montanoOlive tab-transition">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-montanoOlive text-white p-3 rounded-xl"><i class="fa-solid fa-users text-xl"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-montanoOlive">Moment III) Trabajo Cooperativo / en Equipo (30 minutes)</h3>
+                                <p class="text-xs text-slate-500">Structured teamwork with roles and tangible learning products</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mt-4">
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                                <h4 class="font-bold text-emerald-800 mb-2"><i class="fa-solid fa-people-group mr-2"></i>Collaborative Task & Roles</h4>
+                                <p class="text-sm text-slate-700">${data.cooperative.task}</p>
+                            </div>
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-200">
+                                <h4 class="font-bold text-emerald-800 mb-2"><i class="fa-solid fa-box-archive mr-2"></i>Concrete Product</h4>
+                                <p class="text-sm text-slate-700">${data.cooperative.product}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (currentTab === 'closing') {
+                container.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-md p-6 border-t-4 border-montanoYellow tab-transition">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="bg-yellow-500 text-white p-3 rounded-xl"><i class="fa-solid fa-flag-checkered text-xl"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900">Moment IV) Plenaria, Simulador & Cierre (15 minutes)</h3>
+                                <p class="text-xs text-slate-500">Group presentations, interactive simulators, home investigation, and checklist evaluation</p>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-amber-900 mb-2"><i class="fa-solid fa-chalkboard-user mr-2"></i>Plenary & Guiding Questions</h4>
+                                <p class="text-sm text-slate-700">${data.closing.plenary}</p>
+                            </div>
+                            <div class="bg-amber-50 p-4 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-amber-900 mb-2"><i class="fa-solid fa-laptop-code mr-2"></i>Interactive Simulator / Game</h4>
+                                <p class="text-sm text-slate-700">${data.closing.simulator}</p>
+                            </div>
+                        </div>
+                        <div class="bg-sky-50 p-4 rounded-xl border border-sky-200 mb-6">
+                            <h4 class="font-bold text-montanoBlue mb-1"><i class="fa-solid fa-house-chimney mr-2"></i>Home Investigation Task</h4>
+                            <p class="text-sm text-slate-700">${data.closing.homework}</p>
+                        </div>
+
+                        <!-- Interactive Evaluation Checklist Table -->
+                        <div class="border border-slate-200 rounded-xl overflow-hidden">
+                            <div class="bg-montanoBlue text-white p-3 font-bold text-sm flex justify-between items-center">
+                                <span><i class="fa-solid fa-clipboard-check mr-2"></i>Interactive Plenary Evaluation Checklist</span>
+                                <span class="text-xs bg-montanoYellow text-slate-900 px-2 py-0.5 rounded">Group Rubric</span>
+                            </div>
+                            <div class="p-4 bg-slate-50 overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead>
+                                        <tr class="border-b border-slate-300 text-slate-700">
+                                            <th class="pb-2">Evaluation Criteria</th>
+                                            <th class="pb-2 text-center">Outstanding (3)</th>
+                                            <th class="pb-2 text-center">Satisfactory (2)</th>
+                                            <th class="pb-2 text-center">In Progress (1)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-200 text-slate-600">
+                                        <tr>
+                                            <td class="py-2 font-medium">1. Domain of the theme & clarity in explanation</td>
+                                            <td class="text-center"><input type="radio" name="eval1" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval1" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval1" class="accent-montanoBlue"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-medium">2. Logic / procedure followed by the team</td>
+                                            <td class="text-center"><input type="radio" name="eval2" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval2" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval2" class="accent-montanoBlue"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-medium">3. Collaborative teamwork & equal participation</td>
+                                            <td class="text-center"><input type="radio" name="eval3" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval3" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval3" class="accent-montanoBlue"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 font-medium">4. Ability to respond to plenary questions</td>
+                                            <td class="text-center"><input type="radio" name="eval4" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval4" class="accent-montanoBlue"></td>
+                                            <td class="text-center"><input type="radio" name="eval4" class="accent-montanoBlue"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p class="text-xs text-slate-500 mt-3"><em>Note: Use this interactive rubric during classroom presentations to record team scores directly on the Pizarra.</em></p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById('solution-icon');
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                icon.className = "fa-solid fa-chevron-up";
+            } else {
+                el.classList.add('hidden');
+                icon.className = "fa-solid fa-chevron-down";
+            }
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderClass();
+        };
+    </script>
+</body>
+</html>
